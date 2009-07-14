@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages type="array">
+  <page>
+    <breadcrumb>Huge</breadcrumb>
+    <created-at type="datetime">2009-07-10T23:00:23Z</created-at>
+    <created-by-id type="integer">1</created-by-id>
+    <description></description>
+    <id type="integer">1</id>
+    <keywords></keywords>
+    <layout-id type="integer">1</layout-id>
+    <lock-version type="integer">3</lock-version>
+    <parent-id type="integer" nil="true"></parent-id>
+    <published-at type="datetime">2009-07-10T18:00:38Z</published-at>
+    <slug>/</slug>
+    <status-id type="integer">100</status-id>
+    <title>Small</title>
+    <updated-at type="datetime">2009-07-13T20:16:58Z</updated-at>
+    <updated-by-id type="integer">1</updated-by-id>
+    <virtual type="boolean">false</virtual>
+    <parts type="array">
+      <part type="PagePart">
+        <content>Hello world!</content>
+        <filter-id></filter-id>
+        <id type="integer">1</id>
+        <name>body</name>
+        <page-id type="integer">1</page-id>
+      </part>
+      <part type="PagePart">
+        <content></content>
+        <filter-id></filter-id>
+        <id type="integer">2</id>
+        <name>extended</name>
+        <page-id type="integer">1</page-id>
+      </part>
+    </parts>
+  </page>
+  <page>
+    <breadcrumb>Stylesheet</breadcrumb>
+    <created-at type="datetime">2009-07-10T23:09:00Z</created-at>
+    <created-by-id type="integer">1</created-by-id>
+    <description></description>
+    <id type="integer">2</id>
+    <keywords></keywords>
+    <layout-id type="integer">2</layout-id>
+    <lock-version type="integer">2</lock-version>
+    <parent-id type="integer">1</parent-id>
+    <published-at type="datetime">2009-07-10T18:09:51Z</published-at>
+    <slug>stylesheet</slug>
+    <status-id type="integer">100</status-id>
+    <title>Stylesheet</title>
+    <updated-at type="datetime">2009-07-10T23:09:51Z</updated-at>
+    <updated-by-id type="integer">1</updated-by-id>
+    <virtual type="boolean">false</virtual>
+    <parts type="array">
+      <part type="PagePart">
+        <content>* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-family: Verdana;
+  font-size: 10px;
+  background-color: #ddd;
+}
+
+#main {
+  position: absolute;
+  width: 800px;
+  left: 50%;
+  top: 10px;
+  margin-left: -400px;
+  border: 1px solid gray;
+  background-color: white;
+  padding: 10px 20px;
+  -moz-border-radius: 5px;
+}
+
+#header {
+  background: url(&lt;r:assets:url title=&quot;logo&quot;/&gt;) no-repeat top left;
+  font-size: 25px;
+  color: #997bb9;
+  font-family: Georgia;
+  height: 65px;
+  padding-top: 115px;
+  padding-left: 290px;
+  text-align: center;
+  border-bottom: 10px solid #A7CE62;
+}</content>
+        <filter-id></filter-id>
+        <id type="integer">3</id>
+        <name>body</name>
+        <page-id type="integer">2</page-id>
+      </part>
+      <part type="PagePart">
+        <content></content>
+        <filter-id></filter-id>
+        <id type="integer">4</id>
+        <name>extended</name>
+        <page-id type="integer">2</page-id>
+      </part>
+    </parts>
+  </page>
+</pages>

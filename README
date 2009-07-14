@@ -1,0 +1,2 @@
+Radical is a REST client of Radiant.  It lets you edit pages/layouts/snippets
+on your filesystem, then syncs with your Radiant web application.

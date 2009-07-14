@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page>
+  <breadcrumb>Home</breadcrumb>
+  <created-at type="datetime">2009-07-10T23:00:23Z</created-at>
+  <created-by-id type="integer">1</created-by-id>
+  <description></description>
+  <id type="integer">1</id>
+  <keywords></keywords>
+  <layout-id type="integer">1</layout-id>
+  <lock-version type="integer">1</lock-version>
+  <parent-id type="integer" nil="true"></parent-id>
+  <published-at type="datetime">2009-07-10T18:00:38Z</published-at>
+  <slug>/</slug>
+  <status-id type="integer">100</status-id>
+  <title>Home</title>
+  <updated-at type="datetime">2009-07-10T23:00:38Z</updated-at>
+  <updated-by-id type="integer">1</updated-by-id>
+  <virtual type="boolean">false</virtual>
+  <parts type="array">
+    <part type="PagePart">
+      <content>Hello world!</content>
+      <filter-id></filter-id>
+      <id type="integer">1</id>
+      <name>body</name>
+      <page-id type="integer">1</page-id>
+    </part>
+    <part type="PagePart">
+      <content></content>
+      <filter-id></filter-id>
+      <id type="integer">2</id>
+      <name>extended</name>
+      <page-id type="integer">1</page-id>
+    </part>
+  </parts>
+</page>
