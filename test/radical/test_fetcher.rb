@@ -23,11 +23,21 @@ class TestFetcher < Test::Unit::TestCase
   end
 
   def test_put_page
-    page = Radical::Page.parse(file_fixture('page.xml'))
+    page = Radical::Models::Page.parse(file_fixture('page.xml'))
     page.title = 'Huge'
+    page.parts[0].content = "Leetsauce"
 
     Radical::Fetcher.expects(:post).with("/pages/1.xml", {
-      :query => { 'page' => { 'title' => 'Huge' }, '_method' => 'put' }
+      :query => {
+        '_method' => 'put',
+        'page' => {
+          'title' => 'Huge',
+          'parts_attributes' => {
+            '0' => { 'id' => page.parts[0].id, 'content' => 'Leetsauce' },
+            '1' => { 'id' => page.parts[1].id, 'content' => page.parts[1].content }
+          }
+        }
+      }
     })
     Radical::Fetcher.put_page(page)
   end

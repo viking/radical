@@ -1,6 +1,9 @@
 require 'test/unit'
+require 'fileutils'
+require 'yaml'
 require 'rubygems'
 require 'mocha'
+require 'ruby-debug'
 
 $LOAD_PATH.unshift(File.expand_path(File.dirname(__FILE__) + "/../lib"))
 require 'radical'
