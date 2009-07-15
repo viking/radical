@@ -1,0 +1,8 @@
+#!/usr/bin/ruby
+require File.dirname(__FILE__) + "/../lib/radical"
+
+runner = Radical::Runner.new
+loop do
+  runner.check
+  sleep 1
+end

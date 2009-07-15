@@ -6,7 +6,7 @@ class TestRunner < Test::Unit::TestCase
     Radical::Fetcher.expects(:get_pages).returns(@pages)
 
     @data_dir = File.expand_path(File.dirname(__FILE__) + "/../data")
-    FileUtils.rm_rf(Dir["#{@data_dir}/*"])
+    FileUtils.rm_rf(Dir["#{@data_dir}/pages/*"])
   end
 
   def start_runner
