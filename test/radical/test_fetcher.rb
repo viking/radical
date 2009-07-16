@@ -9,15 +9,30 @@ class TestFetcher < Test::Unit::TestCase
     assert_equal :plain, Radical::Fetcher.default_options[:format]
   end
 
-  def test_get_pages
+  def test_get_all_pages
     stub_http_response_with("pages.xml")
-    pages = Radical::Fetcher.get_pages
+    pages = Radical::Fetcher.get(:page, :all)
     assert_equal 2, pages.length
+    assert_kind_of Radical::Models::Page, pages[0]
+  end
+
+  def test_get_all_layouts
+    stub_http_response_with("layouts.xml")
+    layouts = Radical::Fetcher.get(:layout, :all)
+    assert_equal 2, layouts.length
+    assert_kind_of Radical::Models::Layout, layouts[0]
+  end
+
+  def test_get_all_snippets
+    stub_http_response_with("snippets.xml")
+    snippets = Radical::Fetcher.get(:snippet, :all)
+    assert_equal 1, snippets.length
+    assert_kind_of Radical::Models::Snippet, snippets[0]
   end
 
   def test_get_page
     stub_http_response_with("page.xml")
-    page = Radical::Fetcher.get_page(1)
+    page = Radical::Fetcher.get(:page, 1)
     assert_equal 1, page.id
     assert_equal "Home", page.title
   end
@@ -33,12 +48,18 @@ class TestFetcher < Test::Unit::TestCase
         'page' => {
           'title' => 'Huge',
           'parts_attributes' => {
-            '0' => { 'id' => page.parts[0].id, 'content' => 'Leetsauce' },
-            '1' => { 'id' => page.parts[1].id, 'content' => page.parts[1].content }
+            '1' => {
+              'id' => '1', 'content' => 'Leetsauce',
+              'name' => 'body'
+            },
+            '2' => {
+              'id' => '2', 'content' => '',
+              'name' => 'extended'
+            }
           }
         }
       }
     })
-    Radical::Fetcher.put_page(page)
+    Radical::Fetcher.put(page)
   end
 end

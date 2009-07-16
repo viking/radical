@@ -3,26 +3,35 @@ module Radical
     include HTTParty
     format :plain
 
-    def self.get_pages
-      Models::Page.parse(get("/pages.xml").body)
-    end
-
-    def self.get_page(id)
-      Models::Page.parse(get("/pages/#{id}.xml").body)
-    end
-
-    def self.put_page(page)
-      params = { '_method' => 'put', 'page' => { 'title' => page.title } }
-
-      parts = {}
-      page.parts.each do |part|
-        parts[parts.length.to_s] = {
-          'id' => part.id, 'content' => part.content
-        }
+    class << self
+      alias :original_get :get
+      def get(type, which)
+        klass = Models.const_get(type.to_s.capitalize)
+        base = base_for(type)
+        url = (which == :all) ? "#{base}.xml" : "#{base}/#{which}.xml"
+        klass.parse(original_get(url).body)
       end
-      params['page']['parts_attributes'] = parts
 
-      post("/pages/#{page.id}.xml", :query => params)
+      alias :original_put :put
+      def put(item)
+        type = item.class.to_s.split("::")[-1].downcase
+        params = {
+          '_method' => 'put', type => item.to_params
+        }
+        params[type].delete('id')
+
+        url = "#{base_for(type)}/#{item.id}.xml"
+        post(url, :query => params)
+      end
+
+      private
+        def base_for(type)
+          case type
+          when :page,    'page'    then "/pages"
+          when :layout,  'layout'  then "/layouts"
+          when :snippet, 'snippet' then "/snippets"
+          end
+        end
     end
   end
 end

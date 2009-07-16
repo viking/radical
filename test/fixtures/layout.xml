@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout>
+  <content>&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;
+&quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;
+
+&lt;html xmlns=&quot;http://www.w3.org/1999/xhtml&quot; xml:lang=&quot;en&quot; lang=&quot;en&quot;&gt;
+  &lt;head&gt;
+    &lt;meta http-equiv=&quot;content-type&quot; content=&quot;text/html;charset=UTF-8&quot; /&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;/stylesheet&quot; media=&quot;all&quot; title=&quot;Default&quot; charset=&quot;utf-8&quot;/&gt;
+    &lt;title&gt;TIPQC&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;main&quot;&gt;
+      &lt;r:snippet name=&quot;header&quot; /&gt;
+      &lt;r:content /&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</content>
+  <content-type></content-type>
+  <created-at type="datetime">2009-07-10T22:59:20Z</created-at>
+  <created-by-id type="integer">1</created-by-id>
+  <id type="integer">1</id>
+  <lock-version type="integer">1</lock-version>
+  <name>Default</name>
+  <updated-at type="datetime">2009-07-10T23:32:36Z</updated-at>
+  <updated-by-id type="integer">1</updated-by-id>
+</layout>

@@ -1,8 +1,8 @@
 require File.dirname(__FILE__) + "/../../helper"
 
 class TestPagePart < Test::Unit::TestCase
-  def test_includes_happymapper
-    assert Radical::Models::PagePart.included_modules.include?(HappyMapper)
+  def test_includes_base
+    assert Radical::Models::PagePart.included_modules.include?(Radical::Models::Base)
   end
 
   def test_elements

@@ -30,35 +30,43 @@ module Radical
       @data_dir = File.expand_path(config['data_dir'])  if config['data_dir']
       @log = Logger.new(options['log'] || $stderr)
 
-      @pages = Hash.new { |h, k| h[k] = [] }
       @data_dir ||= DATA_DIR
-      @pages_dir = "#{@data_dir}/pages"
+      @items = %w{page layout snippet}.inject({}) do |h, t|
+        h[t] = Hash.new { |h, k| h[k] = [] }; h
+      end
       sync
     end
 
     def check
       # check timestamps
-      @pages.each_pair do |page_id, timestamps|
-        timestamps.each_index do |i|
-          filename, old_mtime = timestamps[i]
-          new_mtime = File.mtime(filename)
-          if new_mtime > old_mtime
-            @log.info "File '#{filename}' has changed; putting page #{page_id}."
-            page = Models::Page.from_files(@pages_dir, page_id)
-            Fetcher.put_page(page)
-            @pages[page_id][i][1] = new_mtime
-            break
+      @items.each_key do |type|
+        dir = "#{@data_dir}/#{type}s"
+        @items[type].each_pair do |item_id, timestamps|
+          timestamps.each_index do |i|
+            filename, old_mtime = timestamps[i]
+            new_mtime = File.mtime(filename)
+            if new_mtime > old_mtime
+              @log.info "File '#{filename}' has changed; putting #{type} #{item_id}."
+              klass = Models.const_get(type.capitalize)
+              item = klass.from_files(dir, item_id)
+              Fetcher.put(item)
+              @items[type][item_id][i][1] = new_mtime
+              break
+            end
           end
         end
       end
     end
 
     def sync
-      FileUtils.mkdir(@pages_dir)  if !File.exist?(@pages_dir)
+      @items.each_key do |type|
+        dir = "#{@data_dir}/#{type}s"
+        FileUtils.mkdir(dir)  if !File.exist?(dir)
 
-      Fetcher.get_pages.each do |page|
-        page.to_files(@pages_dir).each do |filename|
-          @pages[page.id] << [filename, File.mtime(filename)]
+        Fetcher.get(type, :all).each do |item|
+          item.to_files(dir).each do |filename|
+            @items[type][item.id] << [filename, File.mtime(filename)]
+          end
         end
       end
     end

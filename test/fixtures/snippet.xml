@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snippet>
+  <content>&lt;div id=&quot;header&quot;&gt;
+  Blah blah blah
+&lt;/div&gt;</content>
+  <created-at type="datetime">2009-07-10T23:00:05Z</created-at>
+  <created-by-id type="integer">1</created-by-id>
+  <filter-id></filter-id>
+  <id type="integer">1</id>
+  <lock-version type="integer">6</lock-version>
+  <name>header</name>
+  <updated-at type="datetime">2009-07-10T23:36:34Z</updated-at>
+  <updated-by-id type="integer">1</updated-by-id>
+</snippet>

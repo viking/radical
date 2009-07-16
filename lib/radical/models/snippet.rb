@@ -1,8 +1,7 @@
 module Radical
   module Models
-    class PagePart
+    class Snippet
       include Base
-      tag :part
       element :id, Integer
       element :name, String
       element :content, String
