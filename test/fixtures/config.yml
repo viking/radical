@@ -1,4 +1,3 @@
 base_uri: "http://example.com:3000/admin"
 username: admin
 password: omghuge
-data_dir: test/data

@@ -17,10 +17,7 @@ module Radical
             if element.options.has_key?(:single)
               # omg, it's a sub item!
               sub_dir = "#{item_dir}/#{element.name}"
-              sub_ids = Dir["#{sub_dir}/*"].collect do |f|
-                f.sub(/^.+?(\d+)$/, '\1').to_i
-              end.sort
-
+              sub_ids = Dir.new(sub_dir).grep(/^\d+$/).collect(&:to_i).sort
               sub_items = sub_ids.collect do |sub_id|
                 element.type.from_files(sub_dir, sub_id)
               end
@@ -39,10 +36,15 @@ module Radical
         end
       end
 
-      def to_files(base_dir)
+      def to_files(base_dir, options = {})
         files = []
         item_dir = "#{base_dir}/#{self.id}"
         FileUtils.mkdir(item_dir)  if !File.exist?(item_dir)
+
+        if options[:symlinks]
+          name = self.respond_to?(:name) ? self.name : self.title
+          FileUtils.ln_s item_dir, "#{base_dir}/#{name}"
+        end
 
         attribs = {}
         self.class.elements.each do |element|
@@ -54,7 +56,7 @@ module Radical
 
             value = [value]   if !value.is_a?(Array)
             value.each do |v|
-              files += v.to_files(sub_dir)
+              files += v.to_files(sub_dir, options)
             end
           else
             case element.name

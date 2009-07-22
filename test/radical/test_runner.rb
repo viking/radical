@@ -11,11 +11,13 @@ class TestRunner < Test::Unit::TestCase
 
     @data_dir = File.expand_path(File.dirname(__FILE__) + "/../data")
     FileUtils.rm_rf(Dir["#{@data_dir}/*"])
+
+    test_path = File.expand_path(File.dirname(__FILE__) + "/..")
+    @argv = %W{-c #{test_path}/fixtures/config.yml -d #{test_path}/data -x}
   end
 
   def start_runner
-    argv = ["-c", File.expand_path(File.dirname(__FILE__) + "/../fixtures/config.yml")]
-    Radical::Runner.new(argv)
+    Radical::Runner.new(@argv)
   end
 
   def test_reading_config_from_options
@@ -25,15 +27,23 @@ class TestRunner < Test::Unit::TestCase
       Radical::Fetcher.default_options[:basic_auth])
   end
 
+  def test_command_line_args_override
+    @argv += %w{-u foo -p bar -b http://example.com:3000/huge}
+    start_runner
+    assert_equal "http://example.com:3000/huge", Radical::Fetcher.base_uri
+    assert_equal({ :username => 'foo', :password => 'bar' },
+      Radical::Fetcher.default_options[:basic_auth])
+  end
+
   def test_creating_files
     @pages.each do |page|
-      page.expects(:to_files).with(File.expand_path("test/data/pages")).returns([])
+      page.expects(:to_files).with(File.expand_path("test/data/pages"), :symlinks => true).returns([])
     end
     @layouts.each do |layout|
-      layout.expects(:to_files).with(File.expand_path("test/data/layouts")).returns([])
+      layout.expects(:to_files).with(File.expand_path("test/data/layouts"), :symlinks => true).returns([])
     end
     @snippets.each do |snippet|
-      snippet.expects(:to_files).with(File.expand_path("test/data/snippets")).returns([])
+      snippet.expects(:to_files).with(File.expand_path("test/data/snippets"), :symlinks => true).returns([])
     end
     start_runner
   end
