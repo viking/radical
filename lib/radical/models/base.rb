@@ -18,7 +18,7 @@ module Radical
               # omg, it's a sub item!
               sub_dir = "#{item_dir}/#{element.name}"
               sub_ids = Dir["#{sub_dir}/*"].collect do |f|
-                f.sub(/^.+(\d+)$/, '\1').to_i
+                f.sub(/^.+?(\d+)$/, '\1').to_i
               end.sort
 
               sub_items = sub_ids.collect do |sub_id|

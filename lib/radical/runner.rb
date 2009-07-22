@@ -63,7 +63,9 @@ module Radical
         dir = "#{@data_dir}/#{type}s"
         FileUtils.mkdir(dir)  if !File.exist?(dir)
 
+        @log.info "Syncing #{type}s"
         Fetcher.get(type, :all).each do |item|
+          @log.info "- #{item.id}"
           item.to_files(dir).each do |filename|
             @items[type][item.id] << [filename, File.mtime(filename)]
           end

@@ -2,6 +2,7 @@
 require File.dirname(__FILE__) + "/../lib/radical"
 
 runner = Radical::Runner.new
+Signal.trap("INT")  { puts "Shutting down"; exit }
 loop do
   runner.check
   sleep 1

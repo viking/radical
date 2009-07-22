@@ -73,6 +73,8 @@ class TestBase < Test::Unit::TestCase
 
   def test_from_files
     orig = new_item
+    orig.parts[0].id = 11
+    orig.parts[1].id = 12
     orig.to_files(@data_dir)
 
     item = @klass.from_files(@data_dir, orig.id)
