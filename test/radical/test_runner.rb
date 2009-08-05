@@ -37,6 +37,20 @@ class TestRunner < Test::Unit::TestCase
 
   def test_creating_files
     @pages.each do |page|
+      page.expects(:to_files).with(File.expand_path("test/data/pages"), :symlinks => nil).returns([])
+    end
+    @layouts.each do |layout|
+      layout.expects(:to_files).with(File.expand_path("test/data/layouts"), :symlinks => nil).returns([])
+    end
+    @snippets.each do |snippet|
+      snippet.expects(:to_files).with(File.expand_path("test/data/snippets"), :symlinks => nil).returns([])
+    end
+    start_runner
+  end
+
+  def test_creating_files_with_symlinks
+    @argv << "-s"
+    @pages.each do |page|
       page.expects(:to_files).with(File.expand_path("test/data/pages"), :symlinks => true).returns([])
     end
     @layouts.each do |layout|

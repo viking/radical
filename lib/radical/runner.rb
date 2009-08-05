@@ -32,6 +32,9 @@ module Radical
         opts.on("-d", "--data-dir=DIR", "Specify data directory") do |d|
           options['data_dir'] = d
         end
+        opts.on("-s", "--symlinks", "Add symbolic links") do
+          options['symlinks'] = true
+        end
       end
       parser.parse!(args)
       if options['config'].nil?
@@ -45,10 +48,10 @@ module Radical
         @logger = Logger.new(options.delete('log') || $stderr)
       end
 
-      config = YAML.load_file(options.delete('config'))
-      config.merge!(options)
-      Radical.setup(config)
-      @data_dir = File.expand_path(config['data_dir'])  if config['data_dir']
+      @config = YAML.load_file(options.delete('config'))
+      @config.merge!(options)
+      Radical.setup(@config)
+      @data_dir = File.expand_path(@config['data_dir'])  if @config['data_dir']
 
       @data_dir ||= DATA_DIR
       @items = %w{page layout snippet}.inject({}) do |h, t|
@@ -86,7 +89,7 @@ module Radical
         log :info, "Syncing #{type}s"
         Fetcher.get(type, :all).each do |item|
           log :info, "- #{item.id}"
-          item.to_files(dir, :symlinks => true).each do |filename|
+          item.to_files(dir, :symlinks => @config['symlinks']).each do |filename|
             @items[type][item.id] << [filename, File.mtime(filename)]
           end
         end
